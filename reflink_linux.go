@@ -88,7 +88,7 @@ func reflinkRangeInternal(dst, src *os.File, dstOffset, srcOffset, n int64) erro
 		// ss.Control failed
 		return err2
 	}
-	if err3 != nil && errors.Is(err3, unix.ENOTSUP) {
+	if err3 != nil && (errors.Is(err3, unix.ENOTSUP) || errors.Is(err3, unix.ENOTTY)) {
 		return ErrReflinkFailed
 	}
 
